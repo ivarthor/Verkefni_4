@@ -1,0 +1,362 @@
+/* breytur */
+
+$paddingVar:0;
+$LimeBorder:1px solid lime;
+
+/* mixins */
+
+@mixin Margin-Paddingfixed{
+  padding: 1em;
+  margin: 1em;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box; 
+}
+
+/* ====== GRID Area ====== */
+
+.topnav {
+  grid-area: topnav; 
+}
+header {
+  grid-area: header;
+}
+.content {
+  grid-area: content; 
+}
+footer {
+  grid-area: footer;
+}
+
+/* í content */
+
+.midja {
+  grid-area: midja; 
+}
+.vinstri {
+  grid-area: vinstri;
+}
+.haegri {
+  grid-area: haegri; 
+}
+
+/*  ====== GRID Template Areas ===== 
+heimild: https://gridbyexample.com/examples/example13/ */
+
+body {
+  display: grid;
+  grid-gap: 0;
+  grid-template-areas:
+    "header"
+    "content"
+    "footer"
+    "topnav";
+}
+
+.content {
+  display: grid;
+  grid-gap: 0;
+  grid-template-areas:
+    "midja"
+    "haegri"  
+    "vinstri"
+}
+
+/* ====== Base litir + padding ====== */
+body {
+  line-height: 1.5em;
+}
+.topnav {
+  background: #1c2d1c; 
+}
+header {
+  background: tomato; 
+}
+footer {
+  background: lightgreen; 
+}
+.midja {
+  background: skyblue; 
+}
+.vinstri, 
+.haegri {
+  background: gold; 
+}
+
+header,
+footer,
+.midja,
+.vinstri, 
+.haegri {
+  padding: 1em; 
+}
+
+/* ====== leturstílar ====== */
+
+header h1 {
+  color: #fff;
+  line-height: 1.2;
+  font-weight: normal;
+}
+.midja h2 {
+  margin: .7em 0 .8em 0;
+}
+.midja h4 {
+  text-align: justify;
+  margin: .4em 0;
+}
+.midja p {
+  text-align: justify;
+}
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+
+}
+
+/* =======================================
+  Efnisyfirlit - mobile
+  ======================================== */
+.topnav input{
+  display: none;
+}
+.topnav label{
+  position: fixed;
+  bottom:0;
+  left: 0;
+  border: solid 1px gray;
+  color:white;
+  background-color:#005573;
+  padding:1em 0;
+  text-align: center;
+  z-index: 99;
+  width: 100%;
+ }
+
+.topnav ul{
+  background: #1c2d1c;
+}
+.topnav input:checked ~ .topmenu {
+  position: fixed;
+  bottom: 3em;
+  left: 0;
+  transition: all .5s ease;
+}
+
+.topmenu {
+  padding: $paddingVar;
+  margin: 0;
+  list-style: none;
+  position: fixed;
+  bottom: -10em;
+  left:0;
+  width: 100%;
+  transition: all .3s ease;
+}
+.topmenu li {
+  border: 0;
+  border-bottom: $LimeBorder; 
+  padding: $paddingVar;
+  margin:0;
+}
+.topmenu li {
+  border: 0;
+  padding: $paddingVar;
+  border-bottom: $LimeBorder; 
+}
+.topmenu a {
+  display: block;     /* ath! */
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  padding: .4em 1em; 
+}
+.topmenu a:hover,
+.topmenu a:active,
+.virkur {
+  color: black !important;
+  background-color: lime;
+}
+figure {
+  margin: 0;
+  border: 1px solid orange;
+}
+.myndabox {
+  width: 160px;
+}
+.tenglar {
+  display:flex;
+  flex-flow: row;
+  justify-content: center;
+}
+.tenglar a{
+  text-decoration:none;
+}
+.A,
+.B,
+.C,
+.D {
+  display: block;
+  color: white;
+   
+}
+.A {
+  background-color: #0069ff;
+  @include Margin-Paddingfixed;
+}
+.B {
+  background-color: #003aff;
+  @include Margin-Paddingfixed;
+}
+.C {
+  background-color: #409c44;
+  @include Margin-Paddingfixed;
+}
+.D {
+  background-color: #03a9f4;
+  @include Margin-Paddingfixed;
+}
+
+
+/*  ========================================
+  Viðmið - breakpoints 30em = 480px + 
+  ========================================*/
+
+@media screen and (min-width: 30em) { /*ATHUGIÐ! slaufusvigin má ekki byrja í næstu línu.*/
+.myndabox {
+  display: grid;
+  grid-template-columns: 162px 162px
+}
+
+
+}
+
+/*  ========================================
+  Viðmið - breakpoints 37.5em = 600px + 
+  ========================================*/
+
+@media screen and (min-width: 37.5em) {
+
+  .content {
+    display: grid;
+    grid-gap: 0;
+    grid-template-areas:
+      "haegri midja"
+      "vinstri midja";
+
+    grid-template-columns: 1fr 2fr;  /* skipti yfir í 2 dálka */
+
+  }
+
+
+}
+
+/* ========================================
+  Viðmið - breakpoints 48em = spjaldtölvur
+  ======================================== */
+
+@media screen and (min-width: 48em) {  
+
+  body { 
+    /*færi topnav efst á síðu */
+    grid-template-areas:
+      "topnav"  
+      "header"
+      "content"
+      "footer";
+  } 
+
+  /* ATH! það er ekki skynsamlegt að nota grid í efnisyfirlit ~ fjöldi tengla getur breyst */
+ .topmenu {
+    display: flex;  
+    flex-flow: row; /* ath!  */
+    justify-content: center;
+
+    position: relative;   
+    top: 0;              
+  }
+  .topmenu li {  
+    border: 0;
+    border-left: $LimeBorder; 
+    padding: $paddingVar;
+  }
+  .topmenu li:last-child {
+    border-right: $LimeBorder; 
+  } 
+  .topnav label {
+    position: fixed;
+    bottom: -10em;
+  }
+  .myndabox {
+    grid-template-columns: repeat(4, 83.4%);
+  }
+
+  .tenglar {
+    left: -0.3em;
+    top: 4em;
+    display:flex;
+    flex-flow: column;
+    position: fixed; 
+  }
+  .A,
+  .B,
+  .C,
+  .D {
+    margin: 0;
+  }
+}
+
+
+
+
+/* ========================================
+  Viðmið - breakpoints 60em = fartölvur
+  ======================================== */
+
+@media screen and (min-width: 60em) { 
+  body { 
+    width: 60em; 
+    margin: 0 auto;
+  }
+  .content {
+    /* skipti yfir í 3 dálka */
+    grid-template-areas:
+      "vinstri midja haegri";
+
+    grid-template-columns: 1fr 3fr 1fr;
+  }
+
+  .sMedia {
+    display: flex;
+    flex-flow: column;
+    position: fixed;   /* alltaf á sama stað í vafranum */
+    top: 4em;
+    left: -.5em;
+    height: 12em;
+    width: 3em;
+  }
+  .myndabox {
+    grid-template-columns: repeat(4, 83,3%);
+  }
+}
+
+
+/* ========================================
+  Viðmið - breakpoints 80em = borðtölvur
+  ======================================== */
+
+@media screen and (min-width: 80em) { 
+  body { 
+    max-width: 80em;
+    margin: 0 auto;
+  }
+  .myndabox {
+    grid-template-columns:(4, 100%);
+  }
+}
